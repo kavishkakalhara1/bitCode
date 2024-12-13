@@ -33,7 +33,7 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
+    if (!formData.emailOrUsername || !formData.password) {
       return dispatch(signInFailure("Please fill all the fields"));
     }
     try {
@@ -79,11 +79,11 @@ export default function SignIn() {
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
-              <Label value="Your email" />
+              <Label value="Your email or username" />
               <TextInput
-                type="email"
+                type="text"
                 placeholder="name@company.com"
-                id="email"
+                id="emailOrUsername"
                 onChange={handleChange}
               />
             </div>
