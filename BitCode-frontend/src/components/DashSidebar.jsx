@@ -62,17 +62,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-          {currentUser && currentUser.isAdmin && (
-            <Link to="/dashboard?tab=charts">
-              <Sidebar.Item
-                active={tab === "charts" || !tab}
-                icon={HiChartBar}
-                as="div"
-              >
-                Charts
-              </Sidebar.Item>
-            </Link>
-          )}
+          
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile" ? true : false}
@@ -84,19 +74,8 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
-          <Link to="/dashboard?tab=membership">
-            <Sidebar.Item
-              active={tab === "membership"}
-              icon={GrUpgrade}
-              label={currentUser.isMember}
-              // label={currentUser.isMember === 'Ordinary'?  'Paid':'Free'? true:false}
-              labelColor="dark"
-              as="div"
-            >
-              Payments
-            </Sidebar.Item>
-          </Link>
-          {currentUser.isAdmin && (
+          
+          
             <Link to="/dashboard?tab=announcements">
               <Sidebar.Item
                 active={tab === "announcements" ? true : false}
@@ -106,18 +85,8 @@ export default function DashSidebar() {
                 Announcements
               </Sidebar.Item>
             </Link>
-          )}
-          {currentUser.isAdmin && (
-            <Link to="/dashboard?tab=mail">
-              <Sidebar.Item
-                active={tab === "email" ? true : false}
-                icon={HiMail}
-                as="div"
-              >
-                Email
-              </Sidebar.Item>
-            </Link>
-          )}
+        
+          
           {currentUser.isAdmin && (
             <>
               <Link to="/dashboard?tab=users">
@@ -140,19 +109,7 @@ export default function DashSidebar() {
               </Link>
             </>
           )}
-          {currentUser && (
-            <>
-              <Link to="/dashboard?tab=card">
-                <Sidebar.Item
-                  active={tab === "card" ? true : false}
-                  icon={HiOutlineCreditCard}
-                  as="div"
-                >
-                  Membership Card
-                </Sidebar.Item>
-              </Link>
-            </>
-          )}
+        
           {currentUser && (
             <>
               <Link to="/dashboard?tab=settings">

@@ -1,13 +1,9 @@
 // routes/payment.route.js
 import express from 'express';
-import {notifyPayment, getMerchantSecret, getUserPayments, getMerchantId} from '../controllers/payment.controller.js';
+import {createPaymentIntent} from '../controllers/payment.controller.js';
 
 const router = express.Router();
 
-router.post('/notify',notifyPayment);
-// router.post('/generate-hash', generateHash);
-router.get('/get-merchantt-secrett', getMerchantSecret);
-router.get('/get-merchantt-idd', getMerchantId);
-router.get('/user/:userId', getUserPayments); // New route to fetch user payments
+router.post('/create-payment-intent',createPaymentIntent);
 
 export default router;

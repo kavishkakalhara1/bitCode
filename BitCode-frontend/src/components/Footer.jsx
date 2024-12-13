@@ -12,13 +12,13 @@ export default function FooterComponent() {
             <Footer.Title title="Contact Us" />
             <Footer.LinkGroup col>
               <Footer.Link href="mailto:info@refaa.lk">
-                info@refaa.lk
+                info@codecampus.lk
               </Footer.Link>
               <Footer.Link href="mailto:president@refaa.lk">
-                president@refaa.lk
+              info@codecampus.lk
               </Footer.Link>
               <Footer.Link href="mailto:secretary@refaa.lk">
-                secretary@refaa.lk
+              info@codecampus.lk
               </Footer.Link>
             </Footer.LinkGroup>
           </div>
@@ -48,7 +48,7 @@ export default function FooterComponent() {
         <div className="w-full px-4 py-6 bg-indigo-950 sm:flex sm:items-center sm:justify-between">
           <Footer.Copyright
             href="/"
-            by="REFAA™ - Ruhuna Engineering Faculty Alumni Association. All Rights Reserved."
+            by="CODE-CAMPUS™ -  All Rights Reserved."
             year={new Date().getFullYear()}
           />
           <div className="flex mt-4 mr-20 space-x-6 sm:mt-0 sm:justify-center">

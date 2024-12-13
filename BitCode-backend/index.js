@@ -1,4 +1,6 @@
 import express from "express";
+import cors from "cors";
+import Stripe from "stripe";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
@@ -25,6 +27,11 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.use(cors());
+
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -38,6 +45,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/mail", mailRoutes);
+app.use("api/payment", paymentRoutes)
 
 //for payhere payment gateway
 app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded

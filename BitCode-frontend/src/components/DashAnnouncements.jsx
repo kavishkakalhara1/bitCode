@@ -72,7 +72,17 @@ export default function DashAnnouncements() {
 
   return (
     <div className="p-3 overflow-x-scroll table-auto md:mx-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser.isAdmin && userPosts.length > 0 ? (
+      {currentUser.isAdmin || (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              className="w-full bg-refaa-blue hover:bg-red-800 hover:shadow-xl"
+            >
+              Create a Post
+            </Button>
+          </Link>
+        )}
+      {currentUser.isAdmin || userPosts.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
             <Table.Head>

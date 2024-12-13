@@ -2,12 +2,18 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import { signupSchema, signinSchema } from "../joi/validationSchemas.js";
+import sanitizeHtml from "sanitize-html";
 
 
 
 export const signup = async (req, res, next) => {
   
-  
+  const { error } = signupSchema.validate(req.body);
+  if (error) {
+    return next(errorHandler(400, error.details[0].message));
+  }
+
   const {
     fullname,
     email,
@@ -18,7 +24,7 @@ export const signup = async (req, res, next) => {
 
   } = req.body;
 
-  req.body.trend2 = membershipId;
+ 
 
   if (
     !email ||
@@ -32,15 +38,24 @@ export const signup = async (req, res, next) => {
     next(errorHandler(400, "All fields are required"));
   }
 
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+   // Sanitize input
+   const sanitizedFullname = sanitizeHtml(fullname);
+    const sanitizedEmail = sanitizeHtml(email);
+    const sanitizedUsername = sanitizeHtml(username);
+    const sanitizedUniversityregistrationnumber = sanitizeHtml(universityregistrationnumber);
+    const sanitizedUniversity = sanitizeHtml(university);
+    const sanitizedPassword = sanitizeHtml(password);
+
+
+  const hashedPassword = bcryptjs.hashSync(sanitizedPassword, 10);
 
   const newUser = new User({
-    fullname,
-    email,
-    username,
+    fullname:sanitizedFullname,
+    email:sanitizedEmail,
+    username:sanitizedUsername,
     password: hashedPassword,
-    universityregistrationnumber,
-    university
+    universityregistrationnumber:sanitizedUniversityregistrationnumber,
+    university:sanitizedUniversity,
   });
 
   try {
@@ -52,7 +67,14 @@ export const signup = async (req, res, next) => {
 };
 
 export const signin = async (req, res, next) => {
+
+  
   const { emailOrUsername, password } = req.body;
+  
+
+  if (!emailOrUsername || !password || emailOrUsername === "" || password === "") {
+    next(errorHandler(400, "All fields are required"));
+  }
 
   // Check if both fields are provided
   if (!emailOrUsername || !password || emailOrUsername === "" || password === "") {

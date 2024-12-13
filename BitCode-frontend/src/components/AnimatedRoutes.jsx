@@ -4,13 +4,14 @@ import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Search from "../pages/Search";
-import Projects from "../pages/ArticlesPage";
 import { AnimatePresence } from "framer-motion";
 import NotFound from "../pages/NotFound";
 import QuizStartPage from "../pages/Quiz/QuizStartPage";
 import QuestionPage from "../pages/Quiz/QuestionPage";
 import Leaderboard from "../pages/Quiz/Leaderboard";
 import QuizResultsPage from "../pages/Quiz/QuizResultsPage";
+import MarketPlace from "../pages/MarketPlace";
+import CheckoutPage from "../pages/CheckoutPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -21,11 +22,10 @@ function AnimatedRoutes() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/articles" element={<Projects />} />
-        <Route path="/quiz" element={<QuizStartPage />} />
-        <Route path="/quiz/:questionId" element={<QuestionPage />} />
-        <Route path="/quiz-leaderboard/" element={<Leaderboard/>} />
-        <Route path="/quiz-results" element={<QuizResultsPage/>} />
+        <Route path="/marketplace" element={<MarketPlace />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        
+        
 
         
         

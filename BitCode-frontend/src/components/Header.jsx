@@ -7,7 +7,7 @@ import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
 import Logo from "../assets/logo.png"
-import MemberID from "./MemberID";
+
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -50,6 +50,7 @@ export default function Header() {
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
+  
 
   return (
     <Navbar className="relative flex h-20 mx-auto 2xl:w-10/12 md:rounded-b-3xl md:sticky md:top-0 bg-opacity-80 z-1000 md:drop-shadow-xl" style={{zIndex: 1000}}>
@@ -59,7 +60,7 @@ export default function Header() {
       >
         <img src={Logo} className="w-20 h-auto" />
       </Link>
-      {/* <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <TextInput
           type="text"
           placeholder="Search..."
@@ -71,7 +72,7 @@ export default function Header() {
       </form>
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
         <AiOutlineSearch />
-      </Button> */}
+      </Button>
       <div className="flex gap-2 md:order-2">
         {/* <Button
           className="hidden w-12 h-10 sm:inline"
@@ -123,43 +124,25 @@ export default function Header() {
         <Navbar active={path === "/"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           <Link to="/">Home</Link>
         </Navbar>
-        <Navbar  as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
-          <Dropdown
-            className="hover:text-red-950"
-            arrowIcon={true}
-            inline
-            label="About Us"
-          >
-            <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/about/affiliation">Affiliation</Link>
-            </Dropdown.Item>
-            <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/about/vision-mission">Vision and Mission</Link>
-            </Dropdown.Item>
-            <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/about/constitution">Constitution</Link>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/about/contact-us">Contact Us</Link>
-            </Dropdown.Item>
-          </Dropdown>
+        <Navbar active={path === "/"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
+          <Link to="/marketplace">Marketplace</Link>
         </Navbar>
+        
         <Navbar as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           <Dropdown
             className="hover:text-red-950"
             arrowIcon={true}
             inline
-            label="Announcenments"
+            label="Categories"
           >
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/search?searchTerm=&sort=desc&category=Event">Events</Link>
+              <Link to="/search?searchTerm=&sort=desc&category=Event">All Item</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/search?searchTerm=&sort=desc&category=News">News</Link>
+              <Link to="/search?searchTerm=&sort=desc&category=News">Item type 1</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/search?searchTerm=&sort=desc&category=Obituaries">Obituaries</Link>
+              <Link to="/search?searchTerm=&sort=desc&category=Obituaries">Item type 2</Link>
             </Dropdown.Item>
             <Dropdown.Divider />
           </Dropdown>
@@ -169,16 +152,16 @@ export default function Header() {
             className="hover:text-red-950"
             arrowIcon={true}
             inline
-            label="Membership"
+            label="Seller"
           >
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/membership/how-to-become-a-member">How to Become a Member</Link>
+              <Link to="/membership/how-to-become-a-member">How to Become a Seller</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/membership/entry-requirements">Entry Requirements</Link>
+              <Link to="/membership/entry-requirements">Seller Requirements</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/membership/membership-fees">Membership Fees</Link>
+              <Link to="/membership/membership-fees">Seller annual Fees</Link>
             </Dropdown.Item>
             <Dropdown.Divider />
           </Dropdown>
@@ -188,24 +171,24 @@ export default function Header() {
             className="hover:text-red-950"
             arrowIcon={true}
             inline
-            label="Committees"
+            label="Branches"
           >
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/commitees/executive-committee">Executive Committee</Link>
+              <Link to="/commitees/executive-committee">Colombo</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="" >Chapters</Link>
+              <Link to="" >Matara</Link>
             </Dropdown.Item>
             <Dropdown.Item className="hover:text-red-950 hover:font-semibold">
-              <Link to="/commitees/technical-team">Technical Team</Link>
+              <Link to="/commitees/technical-team">Galle</Link>
             </Dropdown.Item>
             <Dropdown.Divider />
           </Dropdown>
         </Navbar> 
-        <Navbar active={path === "/search"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
+        {/* <Navbar active={path === "/search"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           
-          <Link to={currentUser? "/dashboard?tab=membership":'/sign-in'} disabled>Get Membership</Link>
-        </Navbar>
+          <Link to={currentUser? "/dashboard?tab=membership":'/sign-in'} disabled>Seller Membership</Link>
+        </Navbar> */}
       </Navbar.Collapse>
     </Navbar>
   );

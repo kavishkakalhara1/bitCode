@@ -1,8 +1,7 @@
-import { Alert, Button, Select, Spinner, TextInput } from "flowbite-react";
+import { Alert, Button, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
-import InputMask from "react-input-mask";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -10,12 +9,20 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Password validation function
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.[A-Z])(?=.\d)(?=.[!@#$%^&()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (
       !formData.fullname ||
       !formData.username ||
@@ -36,7 +43,13 @@ export default function SignUp() {
       return;
     }
 
-    
+    if (!validatePassword(formData.password)) {
+      setErrorMessage(
+        "Password must be at least 8 characters long, contain one uppercase letter, one number, and one special character."
+      );
+      setTimeout(() => setErrorMessage(null), 5000);
+      return;
+    }
 
     try {
       setLoading(true);
@@ -53,11 +66,14 @@ export default function SignUp() {
 
       const data = await res.json();
       console.log(data);
+
       if (data.success === false) {
         setErrorMessage("An Error Occurred. Please Try Again.");
         setTimeout(() => setErrorMessage(null), 3000);
       }
+
       setLoading(false);
+
       if (res.ok) {
         navigate("/sign-in");
       }
@@ -69,8 +85,8 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen mt-20">
-      <div className="flex flex-col max-w-3xl gap-5 p-3 mx-auto md:flex-row ">
-        {/* left */}
+      <div className="flex flex-col max-w-3xl gap-5 p-3 mx-auto md:flex-row">
+        {/* Left */}
         <div className="flex-1 xl:mr-40">
           <Link to="/" className="text-4xl font-bold dark:text-white">
             <img
@@ -84,10 +100,10 @@ export default function SignUp() {
             Engineering.
           </p>
         </div>
-        {/* right */}
 
+        {/* Right */}
         <div className="flex-1">
-          <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
               <h1 className="text-3xl font-semibold">Sign Up</h1>
             </div>
@@ -170,6 +186,7 @@ export default function SignUp() {
               Sign In
             </Link>
           </div>
+
           {errorMessage && (
             <Alert className="mt-5" color="failure">
               {errorMessage}
