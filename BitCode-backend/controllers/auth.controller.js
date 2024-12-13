@@ -53,7 +53,7 @@ export const signup = async (req, res, next) => {
     fullname,
     email,
     username,
-    password,
+    password: hashedPassword,
     universityregistrationnumber,
     university
   });
