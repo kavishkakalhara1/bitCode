@@ -3,25 +3,10 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-// Helper function to generate membership ID
-const generateMembershipId = async () => {
-  const latestUser = await User.findOne()
-    .sort({ createdAt: -1 })
-    .select("trend2")
-    .exec();
 
-  let latestNumber = 0;
-  if (latestUser && latestUser.trend2) {
-    const latestId = latestUser.trend2;
-    const numberPart = latestId.split("-").pop();
-    latestNumber = parseInt(numberPart, 10);
-  }
-
-  return `REFAA-UP-${String(latestNumber + 1).padStart(4, "0")}`;
-};
 
 export const signup = async (req, res, next) => {
-  const membershipId = await generateMembershipId();
+  
   
   const {
     fullname,
@@ -67,21 +52,30 @@ export const signup = async (req, res, next) => {
 };
 
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { emailOrUsername, password } = req.body;
 
-  if (!email || !password || email === "" || password === "") {
-    next(errorHandler(400, "All fields are required"));
+  // Check if both fields are provided
+  if (!emailOrUsername || !password || emailOrUsername === "" || password === "") {
+    return next(errorHandler(400, "All fields are required"));
   }
 
   try {
-    const validUser = await User.findOne({ email });
+    // Find user by email or username
+    const validUser = await User.findOne({
+      $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
+    });
+
     if (!validUser) {
       return next(errorHandler(404, "User not found"));
     }
+
+    // Verify password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
+
+    // Generate token
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECRET
@@ -89,12 +83,12 @@ export const signin = async (req, res, next) => {
 
     const { password: pass, ...rest } = validUser._doc;
 
+    // Send response with token
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
-        maxAge: 86400000,
-        
+        maxAge: 86400000, // 1 day
       })
       .json(rest);
   } catch (error) {
@@ -102,51 +96,4 @@ export const signin = async (req, res, next) => {
   }
 };
 
-export const google = async (req, res, next) => {
-  const { email, name, googlePhotoUrl } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (user) {
-      const token = jwt.sign(
-        { id: user._id, isAdmin: user.isAdmin },
-        process.env.JWT_SECRET
-      );
-      const { password, ...rest } = user._doc;
-      res
-        .status(200)
-        .cookie("access_token", token, {
-          httpOnly: true,
-          maxAge: 86400000
-        })
-        .json(rest);
-    } else {
-      const generatedPassword =
-        Math.random().toString(36).slice(-8) +
-        Math.random().toString(36).slice(-8);
-      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
-      const newUser = new User({
-        username:
-          name.toLowerCase().split(" ").join("") +
-          Math.random().toString(9).slice(-4),
-        email,
-        password: hashedPassword,
-        profilePicture: googlePhotoUrl,
-      });
-      await newUser.save();
-      const token = jwt.sign(
-        { id: newUser._id, isAdmin: newUser.isAdmin },
-        process.env.JWT_SECRET
-      );
-      const { password, ...rest } = newUser._doc;
-      res
-        .status(200)
-        .cookie("access_token", token, {
-          httpOnly: true,
-          maxAge: 86400000
-        })
-        .json(rest);
-    }
-  } catch (error) {
-    next(error);
-  }
-};
+
