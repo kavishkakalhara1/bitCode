@@ -176,7 +176,7 @@ export default function DashProfile() {
           <Link to={"/create-post"}>
             <Button
               type="button"
-              className="w-full bg-refaa-blue hover:bg-red-800 hover:shadow-xl"
+              className="w-full mt-10 bg-refaa-blue hover:bg-red-800 hover:shadow-xl"
             >
               Create a Post
             </Button>

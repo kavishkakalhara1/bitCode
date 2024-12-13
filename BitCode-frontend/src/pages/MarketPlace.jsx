@@ -220,7 +220,7 @@ function MarketPlace() {
 
   return (
     <div className="container mx-auto mt-10">
-      <h1 className="mb-5 text-3xl font-bold">Marketplace</h1>
+      <h1 className="mb-5 ml-20 text-3xl font-bold">Marketplace</h1>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {limitedItems.map((item) => (
           <div key={item.id} className="p-4 border rounded-lg shadow-lg">

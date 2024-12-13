@@ -127,8 +127,11 @@ export default function Header() {
         <Navbar active={path === "/"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           <Link to="/marketplace">Marketplace</Link>
         </Navbar>
+        <Navbar active={path === "/"? true:false} as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
+          <Link to="/search">Articles</Link>
+        </Navbar>
         
-        <Navbar as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
+        {/* <Navbar as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           <Dropdown
             className="hover:text-red-950"
             arrowIcon={true}
@@ -146,7 +149,7 @@ export default function Header() {
             </Dropdown.Item>
             <Dropdown.Divider />
           </Dropdown>
-        </Navbar>
+        </Navbar> */}
         <Navbar  as={"div"} className=" hover:bg-refaa-blue md:hover:bg-transparent hover:text-gray-200 md:hover:text-gray-700 bg-non">
           <Dropdown
             className="hover:text-red-950"

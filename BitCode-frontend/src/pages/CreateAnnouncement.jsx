@@ -137,9 +137,9 @@ export default function CreateAnnouncement() {
           >
             <option value="" disabled>Select a Category</option>
             <option value="Uncategorized">Uncategorized</option>
-            <option value="Event">Event</option>
-            <option value="SpecialAnnouncement">Special Announcenement</option>
-            <option value="obituary">Obituary</option>
+            <option value="Mobile App">Event</option>
+            <option value="Web App">Special Announcenement</option>
+
           </Select>
         </div>
         <div className="flex items-center justify-between gap-4 p-3 border-4 border-dotted border-refaa-blue">

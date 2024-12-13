@@ -12,6 +12,7 @@ import Leaderboard from "../pages/Quiz/Leaderboard";
 import QuizResultsPage from "../pages/Quiz/QuizResultsPage";
 import MarketPlace from "../pages/MarketPlace";
 import CheckoutPage from "../pages/CheckoutPage";
+import AnnouncementPage from "../pages/AnnouncementPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -24,6 +25,8 @@ function AnimatedRoutes() {
         <Route path="/search" element={<Search />} />
         <Route path="/marketplace" element={<MarketPlace />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/search" element={<AnnouncementPage />} />
+        
         
         
 

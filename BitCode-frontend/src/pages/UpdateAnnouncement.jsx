@@ -132,7 +132,6 @@ export default function UpdateAnnouncement() {
             <option value='Uncategorized'>Select a category</option>
             <option value='Event'>Event</option>
             <option value='News'>News</option>
-            <option value='Obituary'>Obituary</option>
           </Select>
         </div>
         <div className='flex items-center justify-between gap-4 p-3 border-4 border-dotted border-refaa-blue'>

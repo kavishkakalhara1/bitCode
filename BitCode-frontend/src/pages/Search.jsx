@@ -132,9 +132,9 @@ export default function Search() {
             >
               <option value="" disabled>Select</option>
             <option value="Uncategorized">Uncategorized</option>
-            <option value="Event">Event</option>
-            <option value="SpecialAnnouncement">Special Announcenement</option>
-            <option value="obituary">Obituary</option>
+            <option value="Mobile App">Event</option>
+            <option value="Web App">Special Announcenement</option>
+
             </Select>
           </div>
           <Button type='submit' className='bg-refaa-red hover:bg-red-800 hover:shadow-xl'>
