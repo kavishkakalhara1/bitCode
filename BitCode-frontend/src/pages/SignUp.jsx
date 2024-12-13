@@ -36,17 +36,23 @@ export default function SignUp() {
       return;
     }
 
+    
+
     try {
       setLoading(true);
       setErrorMessage(null);
 
+      // Remove confirmPassword before sending data to the backend
+      const { confirmPassword, ...payload } = formData;
+
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
+      console.log(data);
       if (data.success === false) {
         setErrorMessage("An Error Occurred. Please Try Again.");
         setTimeout(() => setErrorMessage(null), 3000);
@@ -102,21 +108,12 @@ export default function SignUp() {
               />
             </div>
             <div>
-              <InputMask
-                mask="EG/2099/9999"
-                value={formData.universityregistrationnumber}
+              <TextInput
+                type="text"
+                placeholder="University Registration Number"
+                id="universityregistrationnumber"
                 onChange={handleChange}
-                maskPlaceholder={"_"}
-              >
-                {(inputProps) => (
-                  <TextInput
-                    {...inputProps}
-                    type="text"
-                    placeholder="University Registration Number"
-                    id="universityregistrationnumber"
-                  />
-                )}
-              </InputMask>
+              />
             </div>
             <div>
               <TextInput
